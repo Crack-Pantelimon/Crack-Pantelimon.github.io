@@ -1,0 +1,69 @@
+[package]
+name = "demo_resolution_selector_web_bevy"
+version = "0.1.0"
+authors = [
+    "johnny-smitherson <127537716+johnny-smitherson@users.noreply.github.com>",
+]
+edition = "2024"
+
+[dependencies]
+bevy = { version = "0.19.0", features = [
+    "http",
+    "https",
+    "jpeg",
+    # Audio: playback engine + 3D spatial audio (part of bevy_audio) and the
+    # mp3 / ogg-vorbis decoders. `vorbis`/`bevy_audio` are already on via the
+    # default `audio` feature, but we list them so the intent is explicit.
+    "bevy_audio",
+    "mp3",
+    "symphonia-vorbis",
+] }
+bevy_egui = "0.40.0"
+avian3d = { git = "https://github.com/avianphysics/avian", branch = "main" }
+# bevy_atmosphere = "0.12.2"
+# bevy_hanabi = { version = "0.14", default-features = false, features = [ "3d", "serde" ] }
+log = { version = "*", features = [
+    "max_level_debug",
+    "release_max_level_warn",
+] }
+rand = "0.10.1"
+rand_chacha = "0.10.0"
+getrandom = { version = "0.4.3" }
+# web-sys = { version = "0.3.77", optional = true, features = ["Window", "Document", "Element", "HtmlCanvasElement", "CssStyleDeclaration", "HtmlDivElement"] }
+tracing = "*"
+anyhow = { workspace = true }
+_crack_utils = { path = "../../rust_pkg/_crack_utils" }
+net_crackpipe = { path = "../../rust_pkg/net_crackpipe" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+postcard = "1.1.1"
+game_logic = { path = "../../crack_demo/game_logic" }
+api_asscrack = { path = "../../rust_pkg/api_asscrack" }
+storage_crackhouse = { path = "../../rust_pkg/storage_crackhouse" }
+
+async-channel = "2"
+
+[target.'cfg(not(target_family = "wasm"))'.dependencies]
+thread_worker = { path = "../../crack_demo/thread_worker" }
+tokio = { version = "1", default-features = false, features = ["rt-multi-thread", "sync"] }
+
+[target.'cfg(target_family = "wasm")'.dependencies]
+web_serviceworker_crackloader = { path = "../../rust_pkg/web_serviceworker_crackloader" }
+wasm-bindgen-futures = { workspace = true }
+getrandom_03 = { package = "getrandom", version = "0.3", features = ["wasm_js"] }
+[dependencies.web-sys]
+optional = true
+version = "0.3.77"
+features = [
+    "Window",
+    "Location",
+    "Document",
+    "Element",
+    "HtmlCanvasElement",
+    "CssStyleDeclaration",
+    "HtmlDivElement",
+]
+
+[features]
+default = []
+web = ["dep:web-sys", "getrandom/wasm_js"]
