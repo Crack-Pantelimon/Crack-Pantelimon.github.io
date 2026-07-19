@@ -97,8 +97,8 @@ pub fn tree_navigator_ui(
         return;
     }
 
-    let mut node_to_select = None;
-    let mut node_to_deselect = false;
+    // let mut node_to_select = None;
+    // let mut node_to_deselect = false;
 
     // Calculate metrics
     let rendered_paths: std::collections::BTreeSet<MapTreeNodePath> = tiles_query
@@ -198,11 +198,11 @@ pub fn tree_navigator_ui(
             // });
         });
 
-    if node_to_deselect {
-        lod_state.selected_node = None;
-    } else if let Some(name) = node_to_select {
-        lod_state.selected_node = Some(name);
-    }
+    // if node_to_deselect {
+    //     lod_state.selected_node = None;
+    // } else if let Some(name) = node_to_select {
+    //     lod_state.selected_node = Some(name);
+    // }
 }
 
 pub fn draw_reference_points_gizmos(
